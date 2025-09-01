@@ -1,0 +1,19 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sectionChild {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sectionLeft {
+    margin: 10px;
+}
+
+.chat-message {
+    margin: 10px;
+}
