@@ -1,10 +1,10 @@
-import { useState } from "react";
+import {useState} from "react";
 
-function MyTextInput({ setTextValue, setOnUse }) {
+function MyTextInput({setTextValue, setOnUse}) {
   const [inputValue, setInputValue] = useState("");
 
-  const handleChange = (e) => setInputValue(e.target.value);
-  const handleClick = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (!inputValue.trim()) return;
     setTextValue(inputValue.trim());
     setOnUse(true);
@@ -12,21 +12,18 @@ function MyTextInput({ setTextValue, setOnUse }) {
   };
 
   return (
-    <div className="input-row">
+    <form className="input-row" onSubmit={handleSubmit}>
       <input
         type="text"
         value={inputValue}
-        onChange={handleChange}
+        onChange={(e) => setInputValue(e.target.value)}
         placeholder="Enter response here..."
         className="text-input"
       />
-      <input
-        type="button"
-        value="Submit"
-        onClick={handleClick}
-        className="btn-primary"
-      />
-    </div>
+      <button type="submit" className="btn-primary">
+        Submit
+      </button>
+    </form>
   );
 }
 
