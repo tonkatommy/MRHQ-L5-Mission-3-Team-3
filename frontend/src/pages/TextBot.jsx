@@ -1,7 +1,7 @@
-import React, {useEffect, useMemo, useState} from "react";
+import { useEffect, useMemo, useState } from "react";
 import "../App.css";
 
-import {GoogleGenAI} from "@google/genai";
+import { GoogleGenAI } from "@google/genai";
 
 import MyTextInput from "../components/TextInput.jsx";
 import ChatLog from "../components/ChatLog.jsx";
@@ -17,7 +17,7 @@ function TextBot() {
   const [chatHistory, setChatHistory] = useState([]);
   const [originalPrompt, setOriginalPrompt] = useState("");
 
-  const ai = new GoogleGenAI({apiKey: import.meta.env.VITE_API_KEY});
+  const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
   //FOR TOMORROW 03/09 SHANE - WORK ON PROMPT - MAYBE CREATE A 3RD API CALL THAT WILL GET AI TO SUMMARIZE CONVERSATION HISTORY
   // First Prompt
   useEffect(() => {
@@ -35,10 +35,7 @@ function TextBot() {
         contents: prompt,
       });
       const text = response.text;
-      setChatHistory((prevChatHistory) => [
-        ...prevChatHistory,
-        "Model: " + text,
-      ]);
+      setChatHistory((prevChatHistory) => [...prevChatHistory, "Model: " + text]);
     }
     main();
   }, [jobOnUse, jobType]);
@@ -49,19 +46,13 @@ function TextBot() {
     async function main() {
       const prompt = `Here is the chat history so far: ${originalPrompt} ${chatHistory.toString()}
         The candidate just answered: ${textValue} give your next reply`;
-      setChatHistory((prevChatHistory) => [
-        ...prevChatHistory,
-        "User: " + textValue,
-      ]);
+      setChatHistory((prevChatHistory) => [...prevChatHistory, "User: " + textValue]);
       const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
         contents: prompt,
       });
       const text = response.text;
-      setChatHistory((prevChatHistory) => [
-        ...prevChatHistory,
-        "Model: " + text,
-      ]);
+      setChatHistory((prevChatHistory) => [...prevChatHistory, "Model: " + text]);
     }
     main();
   }, [onUse, textValue]);
@@ -75,10 +66,7 @@ function TextBot() {
           <label className="field-label" htmlFor="jobTitle">
             Job Title:
           </label>
-          <MyTextInputNoButton
-            setTextValue={setJobType}
-            setOnUse={setJobOnUse}
-          />
+          <MyTextInputNoButton setTextValue={setJobType} setOnUse={setJobOnUse} />
         </div>
 
         <ChatLog chat={chatHistory} />
