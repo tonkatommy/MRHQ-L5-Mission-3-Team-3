@@ -220,8 +220,8 @@ app.post("/api/v1/interview/stream/", async (req, res) => {
 
   try {
     // ===== STREAM THE INTERVIEW RESPONSE =====
-    const response = await ai.models.generateContentStream({
-      model: "gemini-2.5-flash",
+    const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const response = await model.generateContentStream({
       contents: prompt,
     });
 
