@@ -36,7 +36,7 @@
 <h3 align="center">Mission 3 - AI Job Interview App</h3>
 
   <p align="center">
-    project_description
+    An application that can be used by a staff member to practice job interviews for another role.
     <br />
     <a href="https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3"><strong>Explore the docs »</strong></a>
     <br />
@@ -79,22 +79,16 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started. To avoid retyping too much info, do a search and replace with your text editor for the following: `tonkatommy`, `MRHQ-L5-Mission-3-Team-3`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `Mission 3 - AI Job Interview App`, `project_description`, `project_license`
+[![Product Name Screen Shot][product-screenshot]](https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 
-- [![Next][Next.js]][Next-url]
-- [![React][React.js]][React-url]
-- [![Vue][Vue.js]][Vue-url]
-- [![Angular][Angular.io]][Angular-url]
-- [![Svelte][Svelte.dev]][Svelte-url]
-- [![Laravel][Laravel.com]][Laravel-url]
-- [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-- [![JQuery][JQuery.com]][JQuery-url]
+- [![NodeJS](https://img.shields.io/badge/Node.js-6DA55F?logo=node.js&logoColor=white)](#)
+- [![Express.js](https://img.shields.io/badge/Express.js-%23404d59.svg?logo=express&logoColor=%2361DAFB)](#)
+- [![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)](#)
+- [![Google Gemini](https://img.shields.io/badge/Google%20Gemini-886FBF?logo=googlegemini&logoColor=fff)](#)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
