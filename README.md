@@ -110,7 +110,7 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Get a free API Key at [https://aistudio.google.com/app/u/1/apikey](https://aistudio.google.com/app/u/1/apikey)
 2. Clone the repo
    ```sh
    git clone https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3.git
