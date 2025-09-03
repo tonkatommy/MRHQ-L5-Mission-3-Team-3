@@ -3,10 +3,33 @@
   box-sizing: border-box;
 }
 
+/* ===== Theme tokens (light + dark) ===== */
 :root {
   --blue: #0aa;
   --blue-dark: #008bb0;
   --text: #1b1b1b;
+  --bg: #ffffff; /* surface/base color */
+  --fg: var(--text);
+  --panel: #ffffff;
+  --muted: #f6f7f8;
+  --border: #e6e6e6;
+  --border-strong: #2d2d2d;
+  --input-border: #b5e7f1;
+  --brand: var(--blue);
+  --brand-contrast: #ffffff;
+}
+.dark {
+  --bg: #0f1720;
+  --fg: #e6edf3;
+  --panel: #121a24;
+  --muted: #1b2530;
+  --border: #263241;
+  --border-strong: #3a4a59;
+  --input-border: #35545b;
+  --brand: #17bdc6;
+  --brand-contrast: #f6ffff;
+
+  --scrim: rgba(0, 0, 0, 0.52); /* overlay on bg image (dark) */
 }
 
 html,
@@ -17,41 +40,89 @@ body,
 body {
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-  color: var(--text);
-  background: #fff;
+  font-weight: bolder;
+  color: var(--fg);
+  background-color: var(--bg); /* fallback while image loads */
+  transition: background-color 0.2s ease, color 0.2s ease;
+  position: relative;
+  overflow-x: hidden;
 }
 
-/* ---------- top nav (unchanged) ---------- */
+/* ---- Page background image + overlay scrim ---- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("/interview-with-the-vampire.jpg") center / cover no-repeat
+    fixed;
+  z-index: -2; /* sit behind everything */
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--scrim); /* keeps UI readable on top of photo */
+  z-index: -1;
+}
+
+/* ---------- top nav ---------- */
 .top-nav {
   display: flex;
   gap: 1rem;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--panel) 82%, transparent);
+  backdrop-filter: blur(6px);
 }
 .top-nav a {
   text-decoration: none;
-  color: #0a6;
+  color: var(--brand);
 }
 
-/* ---------- centered card shell ---------- */
+/* optional theme toggle (if you added ThemeToggle.jsx) */
+.theme-toggle {
+  margin-left: auto;
+  background: color-mix(in srgb, var(--panel) 75%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  padding: 6px 10px;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+.theme-toggle:hover {
+  background: var(--muted);
+}
+.theme-icon {
+  font-size: 18px;
+  display: inline-block;
+}
+
+/* ---------- shell ---------- */
 .app-shell {
   min-height: calc(100vh - 56px);
   display: grid;
   place-items: start center;
+  gap: 24px;
   padding: 24px 12px 60px;
 }
 
+/* ---------- card ---------- */
 .card {
-  width: 540px; /* controls overall width so nothing spans page */
+  width: 750px;
+  height: auto;
   max-width: 92vw;
-  padding: 12px 16px 20px; /* side padding so fields/chat don’t touch edges */
+  padding: 12px 16px 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  background: #fff;
+  background: color-mix(in srgb, var(--panel) 10%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(6px); /* frosted over bg image */
 }
 
-/* ---------- title ---------- */
 .title {
   margin: 6px 0 2px 0;
   font-size: 20px;
@@ -61,18 +132,16 @@ body {
 
 /* ---------- "Job Title: [input]" in one line ---------- */
 .field-row {
-  display: flex; /* force the label + input onto the same line */
+  display: flex;
   align-items: center;
   gap: 10px;
 }
-
 .field-label {
-  min-width: 95px; /* “Job Title:” width */
+  min-width: 95px;
   font-size: 16px;
 }
-
 .title-input {
-  flex: 1; /* the input takes remaining space on the line */
+  flex: 1;
   height: 40px;
 }
 
@@ -80,32 +149,36 @@ body {
 .text-input {
   width: 100%;
   padding: 10px 12px;
-  border: 2px solid #b5e7f1;
+  border: 2px solid var(--input-border);
   outline: none;
   font-size: 16px;
-  border-radius: 2px;
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--fg);
+  background: color-mix(in srgb, var(--panel) 52%, transparent);
+}
+.text-input::placeholder {
+  color: color-mix(in srgb, var(--fg), transparent 55%);
 }
 .text-input:focus {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 1px var(--blue) inset;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand) 25%, transparent);
 }
 
 .input-row {
-  display: flex; /* bottom input + Submit on one line */
+  display: flex;
   align-items: center;
   gap: 12px;
-  /* matches card’s side padding so it doesn’t feel full-width */
 }
-
 .input-row .text-input {
-  flex: 1; /* prevents spanning page and matches chat width */
+  flex: 1;
 }
 
 .btn-primary {
-  border: none;
-  border-radius: 2px;
-  background: var(--blue);
-  color: #fff;
+  border: 1px solid var(--brand);
+  border-radius: 8px;
+  background: var(--brand);
+  color: var(--brand-contrast);
   font-weight: 600;
   font-size: 16px;
   padding: 10px 14px;
@@ -113,19 +186,20 @@ body {
   min-width: 110px;
 }
 .btn-primary:hover {
-  background: var(--blue-dark);
+  filter: brightness(1.06);
 }
 
 /* ---------- chat area ---------- */
 .chat-box {
   width: 100%;
-  padding: 14px; /* side padding inside the box */
-  border: 2px solid #2d2d2d; /* strong border like the mock */
+  padding: 14px;
+  border: 2px solid var(--border-strong);
   height: 320px;
   overflow: auto;
-  background: #fff;
+  background: color-mix(in srgb, var(--panel) 52%, transparent);
+  border-radius: 12px;
+  backdrop-filter: blur(2px);
 }
-
 .chat-log {
   display: flex;
   flex-direction: column;
@@ -133,50 +207,14 @@ body {
   line-height: 1.45;
   font-size: 15px;
 }
-
 .chat-line {
   white-space: pre-wrap;
+  color: var(--fg);
 }
 
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+/* ---------- optional: mild left nudge on wide screens ---------- */
+@media (min-width: 1200px) {
+  .card {
+    transform: translateX(-18px);
   }
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-} */
