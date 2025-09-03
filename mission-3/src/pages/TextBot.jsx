@@ -18,17 +18,19 @@ function TextBot() {
   const [originalPrompt, setOriginalPrompt] = useState("");
 
   const ai = new GoogleGenAI({apiKey: import.meta.env.VITE_API_KEY});
-  //FOR TOMORROW 03/09 SHANE - WORK ON PROMPT - MAYBE CREATE A 3RD API CALL THAT WILL GET AI TO SUMMARIZE CONVERSATION HISTORY
+
   // First Prompt
   useEffect(() => {
     if (!jobOnUse) return;
     async function main() {
-      const prompt = `You are a job interviewer. You are interviewing a candidate for the position of ${jobType}.
-        Ask them one question at a time and wait for their response before asking the next question.
-        The flow will start with the you saying “Tell me about yourself”. You should ask exactly 6 questions
-        based on response of the user.  Other than the first question. At the end of the whole interview,
-        You should comment on how well the user answered the questions, and suggest how the user can improve
-        its response.`;
+      const prompt = `You are a professional job interviewer for ${jobType}. 
+      Conduct a structured interview with exactly 6 questions, starting with "Tell me about your previous experience with ${jobType}," adjusting wording for grammar if needed. 
+      Avoid greetings or introductions. Ask each subsequent question, keep in mind previous questions and answers received to avoid questions that are too similar. Keep questions concise (one sentence max), professional, focused, and phrasing varied to avoid repetition. 
+      If the candidate gives an off-topic answer or skips a question, politely redirect or prompt for a relevant response; allow partial answers if needed. 
+      If the candidate repeatedly refuses, explain why the information is important and, if refusal continues, conclude the interview professionally. 
+      After 6 valid questions, provide a concise 3-sentence feedback summary highlighting strengths and suggesting improvements. 
+      Track progress internally to ensure exactly 6 valid questions are asked.
+      `;
       setOriginalPrompt("User: " + prompt);
       const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
@@ -39,6 +41,7 @@ function TextBot() {
         ...prevChatHistory,
         "Model: " + text,
       ]);
+      console.log(prompt);
     }
     main();
   }, [jobOnUse, jobType]);
