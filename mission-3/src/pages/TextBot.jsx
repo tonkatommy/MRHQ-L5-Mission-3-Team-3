@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import "../App.css";
 
-import { GoogleGenAI } from "@google/genai";
+import {GoogleGenAI} from "@google/genai";
 
 import MyTextInput from "../components/TextInput.jsx";
 import ChatLog from "../components/ChatLog.jsx";
@@ -17,85 +17,57 @@ function TextBot() {
   const [chatHistory, setChatHistory] = useState([]);
   const [originalPrompt, setOriginalPrompt] = useState("");
 
-  // Create the Google GenAI client once
-  const ai = useMemo(
-    () => new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY }),
-    []
-  );
+  const ai = new GoogleGenAI({apiKey: import.meta.env.VITE_API_KEY});
 
-  /* -------------------- First prompt (kick off the interview) -------------------- */
+  // First Prompt
   useEffect(() => {
-    if (!jobOnUse || !jobType.trim()) return;
-
+    if (!jobOnUse) return;
     async function main() {
-      try {
-        const prompt = `You are a job interviewer. You are interviewing a candidate for the position of "${jobType}".
-Ask exactly one question at a time and wait for the candidate's reply before asking the next.
-Begin with: "Tell me about yourself."
-Ask a total of 6 questions (including the first). After the 6th answer, provide constructive feedback on how the candidate performed and how they can improve.`;
-
-        setOriginalPrompt("User: " + prompt);
-
-        const response = await ai.models.generateContent({
-          model: "gemini-2.5-flash",
-          contents: prompt,
-        });
-
-        const text = await response.text();
-        setChatHistory((prev) => [...prev, "Model: " + text]);
-      } catch (err) {
-        console.error(err);
-        setChatHistory((prev) => [
-          ...prev,
-          "Model: (error starting interview)",
-        ]);
-      } finally {
-        // prevent re-firing
-        setJobOnUse(false);
-      }
+      const prompt = `You are a professional job interviewer for ${jobType}. 
+      Conduct a structured interview with exactly 6 questions, starting with "Tell me about your previous experience with ${jobType}," adjusting wording for grammar if needed. 
+      Avoid greetings or introductions. Ask each subsequent question, keep in mind previous questions and answers received to avoid questions that are too similar. Keep questions concise (one sentence max), professional, focused, and phrasing varied to avoid repetition. 
+      If the candidate gives an off-topic answer or skips a question, politely redirect or prompt for a relevant response; allow partial answers if needed. 
+      If the candidate repeatedly refuses, explain why the information is important and, if refusal continues, conclude the interview professionally. 
+      After 6 valid questions, provide a concise 3-sentence feedback summary highlighting strengths and suggesting improvements. 
+      Track progress internally to ensure exactly 6 valid questions are asked.
+      `;
+      setOriginalPrompt("User: " + prompt);
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+      });
+      const text = response.text;
+      setChatHistory((prevChatHistory) => [
+        ...prevChatHistory,
+        "Model: " + text,
+      ]);
+      console.log(prompt);
     }
-
     main();
-  }, [jobOnUse, jobType, ai]);
+  }, [jobOnUse, jobType]);
 
-  /* -------------------- Follow-up turns -------------------- */
+  // Following Chat
   useEffect(() => {
-    if (!onUse || !textValue.trim()) return;
-
+    if (!onUse) return;
     async function main() {
-      // stop the trigger immediately to avoid double fires
-      setOnUse(false);
-
-      // show user's message once
-      setChatHistory((prev) => [...prev, "User: " + textValue]);
-
-      try {
-        // snapshot current history so we don't depend on it (avoids loops)
-        const historySnapshot = chatHistory.join("\n");
-
-        const prompt = `Here is the chat history so far:
-${originalPrompt}
-${historySnapshot}
-The candidate just answered: "${textValue}"
-Reply with the next interviewer message. If this was the 6th answer, provide final feedback and end the interview.`;
-
-        const response = await ai.models.generateContent({
-          model: "gemini-2.5-flash",
-          contents: prompt,
-        });
-
-        const text = await response.text();
-        setChatHistory((prev) => [...prev, "Model: " + text]);
-      } catch (err) {
-        console.error(err);
-        setChatHistory((prev) => [...prev, "Model: (error getting reply)"]);
-      }
+      const prompt = `Here is the chat history so far: ${originalPrompt} ${chatHistory.toString()}
+        The candidate just answered: ${textValue} give your next reply`;
+      setChatHistory((prevChatHistory) => [
+        ...prevChatHistory,
+        "User: " + textValue,
+      ]);
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+      });
+      const text = response.text;
+      setChatHistory((prevChatHistory) => [
+        ...prevChatHistory,
+        "Model: " + text,
+      ]);
     }
-
     main();
-    // NOTE: do not include chatHistory in deps to avoid append→rerender loops
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onUse, textValue, originalPrompt, ai]);
+  }, [onUse, textValue]);
 
   return (
     <div className="app-shell">
