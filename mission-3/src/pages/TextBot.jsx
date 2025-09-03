@@ -23,12 +23,12 @@ function TextBot() {
   useEffect(() => {
     if (!jobOnUse) return;
     async function main() {
-      const prompt = `You are a job interviewer. You are interviewing a candidate for the position of ${jobType}.
-        Ask them one question at a time and wait for their response before asking the next question.
-        The flow will start with the you saying “Tell me about yourself”. You should ask exactly 6 questions
-        based on response of the user.  Other than the first question. At the end of the whole interview,
-        You should comment on how well the user answered the questions, and suggest how the user can improve
-        its response.`;
+      const prompt = `You are a professional job interviewer for the position of ${jobType}. Conduct a structured interview with exactly 6 questions, Always begin with: ‘Tell me about your previous experience with ${jobType}.’ Adjust wording if needed so it reads naturally for the given job type. 
+            Avoid introductions or greetings, begin with only the first question.
+            Ask each subsequent question based only on the candidate’s previous answer, keeping questions concise (one sentence max), professional, and focused
+            If the candidate gives an off-topic answer, politely redirect them back to the interview without counting it as one of the 6 questions. If they refuse or skip a question, rephrase it or gently prompt them to respond.
+            After all 6 valid questions, provide constructive feedback summarizing the candidate’s strengths and suggesting specific improvements. Track project internally to ensure exactly 6 questions are asked.
+      `;
       setOriginalPrompt("User: " + prompt);
       const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
@@ -39,6 +39,7 @@ function TextBot() {
         ...prevChatHistory,
         "Model: " + text,
       ]);
+      console.log(prompt);
     }
     main();
   }, [jobOnUse, jobType]);
