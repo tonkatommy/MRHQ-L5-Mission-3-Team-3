@@ -18,16 +18,18 @@ function TextBot() {
   const [originalPrompt, setOriginalPrompt] = useState("");
 
   const ai = new GoogleGenAI({apiKey: import.meta.env.VITE_API_KEY});
-  //FOR TOMORROW 03/09 SHANE - WORK ON PROMPT - MAYBE CREATE A 3RD API CALL THAT WILL GET AI TO SUMMARIZE CONVERSATION HISTORY
+
   // First Prompt
   useEffect(() => {
     if (!jobOnUse) return;
     async function main() {
-      const prompt = `You are a professional job interviewer for the position of ${jobType}. Conduct a structured interview with exactly 6 questions, Always begin with: ‘Tell me about your previous experience with ${jobType}.’ Adjust wording if needed so it reads naturally for the given job type. 
-            Avoid introductions or greetings, begin with only the first question.
-            Ask each subsequent question based only on the candidate’s previous answer, keeping questions concise (one sentence max), professional, and focused
-            If the candidate gives an off-topic answer, politely redirect them back to the interview without counting it as one of the 6 questions. If they refuse or skip a question, rephrase it or gently prompt them to respond.
-            After all 6 valid questions, provide constructive feedback summarizing the candidate’s strengths and suggesting specific improvements. Track project internally to ensure exactly 6 questions are asked.
+      const prompt = `You are a professional job interviewer for ${jobType}. 
+      Conduct a structured interview with exactly 6 questions, starting with "Tell me about your previous experience with ${jobType}," adjusting wording for grammar if needed. 
+      Avoid greetings or introductions. Ask each subsequent question, keep in mind previous questions and answers received to avoid questions that are too similar. Keep questions concise (one sentence max), professional, focused, and phrasing varied to avoid repetition. 
+      If the candidate gives an off-topic answer or skips a question, politely redirect or prompt for a relevant response; allow partial answers if needed. 
+      If the candidate repeatedly refuses, explain why the information is important and, if refusal continues, conclude the interview professionally. 
+      After 6 valid questions, provide a concise 3-sentence feedback summary highlighting strengths and suggesting improvements. 
+      Track progress internally to ensure exactly 6 valid questions are asked.
       `;
       setOriginalPrompt("User: " + prompt);
       const response = await ai.models.generateContent({
