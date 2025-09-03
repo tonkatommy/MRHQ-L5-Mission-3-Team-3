@@ -150,10 +150,8 @@ app.post("/api/v1/chat/stream/", async (req, res) => {
     // ===== USE GEMINI'S STREAMING API =====
     // generateContentStream returns chunks as they're generated
     // instead of waiting for the complete response
-    const response = await ai.models.generateContentStream({
-      model: "gemini-2.5-flash",
-      contents: userInput,
-    });
+    const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const response = await model.generateContentStream(userInput);
 
     // ===== PROCESS AND SEND EACH CHUNK =====
     // The 'for await' loop processes each chunk as it arrives from Gemini
