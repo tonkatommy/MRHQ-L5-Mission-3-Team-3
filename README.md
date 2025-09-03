@@ -119,10 +119,16 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
+4. Enter your API in your `.env` file, see `.env.example`
+
+   ```env
+   # Google Gen AI API Key
+   GEMINI_API_KEY='your_api_key_here'
+
+   # Server Port
+   PORT=3000
    ```
+
 5. Change git remote url to avoid accidental pushes to base project
    ```sh
    git remote set-url origin tonkatommy/MRHQ-L5-Mission-3-Team-3
@@ -138,19 +144,6 @@ This is an example of how to list things you need to use the software and how to
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
 _For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ROADMAP -->
-
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-  - [ ] Nested Feature
-
-See the [open issues](https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -177,31 +170,16 @@ Don't forget to give the project a star! Thanks again!
   <img src="https://contrib.rocks/image?repo=tonkatommy/MRHQ-L5-Mission-3-Team-3" alt="contrib.rocks image" />
 </a>
 
-<!-- LICENSE -->
-
-## License
-
-Distributed under the project_license. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- CONTACT -->
 
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Tommy Goodman - [@tonkatommy](https://github.com/tonkatommy/) - GitHub  
+Shane Chapman - [@shane-chapman-23](https://github.com/shane-chapman-23/) - GitHub  
+Thousif - [@thousifnm](https://github.com/thousifnm/) - GitHub  
+Peymon Armand - [@PeymonA](https://github.com/PeymonA/) - GitHub
 
-Project Link: [https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3](https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ACKNOWLEDGMENTS -->
-
-## Acknowledgments
-
-- []()
-- []()
-- []()
+Project Link: [https://github.com/tonkatommy/MRHQ-L5-Mission-2-Team-3](https://github.com/tonkatommy/MRHQ-L5-Mission-2-Team-3)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
