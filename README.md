@@ -179,7 +179,7 @@ Shane Chapman - [@shane-chapman-23](https://github.com/shane-chapman-23/) - GitH
 Thousif - [@thousifnm](https://github.com/thousifnm/) - GitHub  
 Peymon Armand - [@PeymonA](https://github.com/PeymonA/) - GitHub
 
-Project Link: [https://github.com/tonkatommy/MRHQ-L5-Mission-2-Team-3](https://github.com/tonkatommy/MRHQ-L5-Mission-2-Team-3)
+Project Link: [https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3](https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
