@@ -39,11 +39,6 @@ function TextBot() {
         isFirstMessage ? "initial" : "follow-up"
       } response`
     );
-    console.log(
-      `🔄 Starting to stream ${
-        isFirstMessage ? "initial" : "follow-up"
-      } response`
-    );
 
     // Prevent multiple simultaneous requests
     if (inFlightRef.current) return;
@@ -75,17 +70,6 @@ function TextBot() {
 
       // Make request
       console.log(`🌐 Making request to backend...`);
-      const response = await fetch(
-        "http://localhost:3000/api/v1/interview/stream/",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            prompt, // The full prompt to send to Gemini
-            isFirstMessage, // Context for the backend
-          }),
-        }
-      );
       const response = await fetch(
         "http://localhost:3000/api/v1/interview/stream/",
         {
