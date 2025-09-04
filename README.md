@@ -33,7 +33,7 @@
     <img src="readme-images/logo.png" alt="Logo" width="100" height="100">
   </a>
 
-<h3 align="center">Mission 3 - AI Job Interview App </br> PrepTalk</h3>
+<h3 align="center">Mission 3 - AI Job Interview App <br> PrepTalk</h3>
 
   <p align="center">
     An application that can be used by a staff member to practice job interviews for another role.
