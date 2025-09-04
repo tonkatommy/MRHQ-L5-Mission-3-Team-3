@@ -8,7 +8,7 @@ function App() {
     <BrowserRouter>
       <nav className="top-nav">
         <Link to="/">TextBot</Link>
-        <Link to="/voicebot">VoiceBot</Link>
+        {/* <Link to="/voicebot">VoiceBot</Link> */}
         <ThemeToggle />
       </nav>
       <Routes>
