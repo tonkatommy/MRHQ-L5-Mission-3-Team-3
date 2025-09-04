@@ -34,7 +34,11 @@ function TextBot() {
   // This is the heart of the real-time streaming functionality
   // It handles Server-Sent Events (SSE) from our Express backend
   const streamResponse = async (prompt, isFirstMessage = false) => {
-    console.log(`🔄 Starting to stream ${isFirstMessage ? "initial" : "follow-up"} response`);
+    console.log(
+      `🔄 Starting to stream ${
+        isFirstMessage ? "initial" : "follow-up"
+      } response`
+    );
 
     // Prevent multiple simultaneous requests
     if (inFlightRef.current) return;
@@ -66,14 +70,17 @@ function TextBot() {
 
       // Make request
       console.log(`🌐 Making request to backend...`);
-      const response = await fetch("http://localhost:3000/api/v1/interview/stream/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt, // The full prompt to send to Gemini
-          isFirstMessage, // Context for the backend
-        }),
-      });
+      const response = await fetch(
+        "http://localhost:3000/api/v1/interview/stream/",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prompt, // The full prompt to send to Gemini
+            isFirstMessage, // Context for the backend
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -118,7 +125,9 @@ function TextBot() {
             try {
               // Remove the "data: " prefix and parse the JSON
               const data = JSON.parse(line.slice(6));
-              console.log(`📋 Parsed data: ${JSON.stringify(data).substring(0, 100)}...`);
+              console.log(
+                `📋 Parsed data: ${JSON.stringify(data).substring(0, 100)}...`
+              );
 
               // ===== HANDLE ERROR RESPONSES =====
               if (data.error) {
@@ -164,7 +173,10 @@ function TextBot() {
               // ===== HANDLE COMPLETION =====
               if (data.done) {
                 console.log(
-                  `🎉 Streaming completed. Final message: "${accumulatedText.substring(0, 50)}..."`
+                  `🎉 Streaming completed. Final message: "${accumulatedText.substring(
+                    0,
+                    50
+                  )}..."`
                 );
 
                 // Finalize the message with the complete text
@@ -192,7 +204,10 @@ function TextBot() {
       console.error(`❌ Network error: ${networkError.message}`);
 
       // Add an error message to the chat
-      setChatHistory((prev) => [...prev, `PrepTalk: ❌ Error: ${networkError.message}`]);
+      setChatHistory((prev) => [
+        ...prev,
+        `PrepTalk: ❌ Error: ${networkError.message}`,
+      ]);
     } finally {
       // ===== CLEANUP =====
       // Always re-enable user input when streaming ends (success or failure)
@@ -281,7 +296,11 @@ Give your next reply as the interviewer. Remember to:
 - After 6 questions total, provide feedback and suggestions for improvement`;
 
       console.log("📋 Built conversation context for AI with updated history");
-      console.log("📝 Current conversation length:", updated.length, "messages");
+      console.log(
+        "📝 Current conversation length:",
+        updated.length,
+        "messages"
+      );
 
       // ===== STREAM THE AI'S RESPONSE =====
       // The AI will generate the next interview question or provide final feedback
@@ -308,7 +327,10 @@ Give your next reply as the interviewer. Remember to:
             - setTextValue={setJobType}: Updates jobType state with user's input
             - setOnUse={setJobOnUse}: Triggers the interview start when user submits
           */}
-          <MyTextInputNoButton setTextValue={setJobType} setOnUse={setJobOnUse} />
+          <MyTextInputNoButton
+            setTextValue={setJobType}
+            setOnUse={setJobOnUse}
+          />
         </div>
 
         {/* ===== CONVERSATION DISPLAY ===== */}

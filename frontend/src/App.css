@@ -17,6 +17,8 @@
   --input-border: #b5e7f1;
   --brand: var(--blue);
   --brand-contrast: #ffffff;
+  --chat-bot: grey; /* PrepTalk */
+  --chat-user: #22c55e; /* You */
 }
 .dark {
   --bg: #0f1720;
@@ -28,8 +30,9 @@
   --input-border: #35545b;
   --brand: #17bdc6;
   --brand-contrast: #f6ffff;
-
   --scrim: rgba(0, 0, 0, 0.52); /* overlay on bg image (dark) */
+  --chat-bot: grey;
+  --chat-user: #86efac;
 }
 
 html,
@@ -210,6 +213,28 @@ body::after {
 .chat-line {
   white-space: pre-wrap;
   color: var(--fg);
+}
+/* default line color (keeps your current look if order isn't matched) */
+.chat-log .chat-line {
+  color: var(--fg);
+}
+
+/* Alternate by turn: 1st, 3rd, 5th… = PrepTalk; 2nd, 4th… = You */
+.chat-log .chat-line:nth-child(odd) {
+  color: var(--chat-bot);
+}
+.chat-log .chat-line:nth-child(even) {
+  color: var(--chat-user);
+}
+
+/* (Optional) make the speaker token pop a bit using weight & glow */
+.chat-log .chat-line:nth-child(odd) {
+  text-shadow: 0 0 0.5px var(--chat-bot);
+  font-weight: 700;
+}
+.chat-log .chat-line:nth-child(even) {
+  text-shadow: 0 0 0.5px var(--chat-user);
+  font-weight: 700;
 }
 
 /* ---------- optional: mild left nudge on wide screens ---------- */
