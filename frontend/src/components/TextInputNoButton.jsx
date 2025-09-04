@@ -16,7 +16,7 @@ function MyTextInputNoButton({ setTextValue, setOnUse }) {
       value={inputValue}
       onChange={handleChange}
       onKeyDown={(e) => e.key === "Enter" && commit()}
-      placeholder="Type job title here...press Enter to submit"
+      placeholder="Type job title here... press Enter to start the interview"
       className="text-input title-input"
     />
   );
