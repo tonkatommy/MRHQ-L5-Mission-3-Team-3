@@ -1,6 +1,6 @@
 // ===== IMPORTS =====
 // React hooks for state management and side effects
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import "../App.css";
 
 // Import custom components for the interview interface
@@ -34,7 +34,11 @@ function TextBot() {
   // This is the heart of the real-time streaming functionality
   // It handles Server-Sent Events (SSE) from our Express backend
   const streamResponse = async (prompt, isFirstMessage = false) => {
-    console.log(`🔄 Starting to stream ${isFirstMessage ? "initial" : "follow-up"} response`);
+    console.log(
+      `🔄 Starting to stream ${
+        isFirstMessage ? "initial" : "follow-up"
+      } response`
+    );
 
     // Prevent multiple simultaneous requests
     if (inFlightRef.current) return;
@@ -66,14 +70,17 @@ function TextBot() {
 
       // Make request
       console.log(`🌐 Making request to backend...`);
-      const response = await fetch("http://localhost:3000/api/v1/interview/stream/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt, // The full prompt to send to Gemini
-          isFirstMessage, // Context for the backend
-        }),
-      });
+      const response = await fetch(
+        "http://localhost:3000/api/v1/interview/stream/",
+        {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            prompt, // The full prompt to send to Gemini
+            isFirstMessage, // Context for the backend
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -94,7 +101,7 @@ function TextBot() {
       // This loop processes chunks of data as they arrive from the server
       while (true) {
         // Read the next chunk from the stream
-        const { done, value } = await reader.read();
+        const {done, value} = await reader.read();
 
         // If done is true, we've reached the end of the stream
         if (done) {
@@ -118,7 +125,9 @@ function TextBot() {
             try {
               // Remove the "data: " prefix and parse the JSON
               const data = JSON.parse(line.slice(6));
-              console.log(`📋 Parsed data: ${JSON.stringify(data).substring(0, 100)}...`);
+              console.log(
+                `📋 Parsed data: ${JSON.stringify(data).substring(0, 100)}...`
+              );
 
               // ===== HANDLE ERROR RESPONSES =====
               if (data.error) {
@@ -164,7 +173,10 @@ function TextBot() {
               // ===== HANDLE COMPLETION =====
               if (data.done) {
                 console.log(
-                  `🎉 Streaming completed. Final message: "${accumulatedText.substring(0, 50)}..."`
+                  `🎉 Streaming completed. Final message: "${accumulatedText.substring(
+                    0,
+                    50
+                  )}..."`
                 );
 
                 // Finalize the message with the complete text
@@ -192,7 +204,10 @@ function TextBot() {
       console.error(`❌ Network error: ${networkError.message}`);
 
       // Add an error message to the chat
-      setChatHistory((prev) => [...prev, `Model: ❌ Error: ${networkError.message}`]);
+      setChatHistory((prev) => [
+        ...prev,
+        `Model: ❌ Error: ${networkError.message}`,
+      ]);
     } finally {
       // ===== CLEANUP =====
       // Always re-enable user input when streaming ends (success or failure)
@@ -222,13 +237,13 @@ function TextBot() {
 
     // ===== CREATE INITIAL INTERVIEW PROMPT =====
     // This prompt sets up the AI as a professional interviewer
-    const prompt = `You are a professional job interviewer for ${jobType}. 
-      Conduct a structured interview with exactly 6 questions, starting with "Tell me about your previous experience with ${jobType}," adjusting wording for grammar if needed. 
-      Avoid greetings or introductions. Ask each subsequent question, keep in mind previous questions and answers received to avoid questions that are too similar. Keep questions concise (one sentence max), professional, focused, and phrasing varied to avoid repetition. 
-      If the candidate gives an off-topic answer or skips a question, politely redirect or prompt for a relevant response; allow partial answers if needed. 
-      If the candidate repeatedly refuses, explain why the information is important and, if refusal continues, conclude the interview professionally. 
-      After 6 valid questions, provide a concise 3-sentence feedback summary highlighting strengths and suggesting improvements. 
-      Track progress internally to ensure exactly 6 valid questions are asked.`;
+    const prompt = `You are a professional interviewer for ${jobType}. 
+    Ask exactly 6 questions, one at a time, starting with: "Tell me about your previous experience with ${jobType}." 
+    Adjust wording of first question if needed so it reads naturally for the given job type. Do not include greetings. 
+    Each follow-up must be based only on the candidate's previous answer, professional, varied, and one sentence max. 
+    If off-topic, redirect without counting it as one of the 6 questions. 
+    If they skip/refuse, rephrase or explain why it matters; if they continue, end the interview. 
+    After 6 valid answers, give a 3-sentence feedback summary of strengths and improvements.`;
 
     // Store the original prompt for context in follow-up messages
     // This helps the AI understand the interview context throughout the conversation
@@ -281,7 +296,11 @@ Give your next reply as the interviewer. Remember to:
 - After 6 questions total, provide feedback and suggestions for improvement`;
 
       console.log("📋 Built conversation context for AI with updated history");
-      console.log("📝 Current conversation length:", updated.length, "messages");
+      console.log(
+        "📝 Current conversation length:",
+        updated.length,
+        "messages"
+      );
 
       // ===== STREAM THE AI'S RESPONSE =====
       // The AI will generate the next interview question or provide final feedback
@@ -308,7 +327,10 @@ Give your next reply as the interviewer. Remember to:
             - setTextValue={setJobType}: Updates jobType state with user's input
             - setOnUse={setJobOnUse}: Triggers the interview start when user submits
           */}
-          <MyTextInputNoButton setTextValue={setJobType} setOnUse={setJobOnUse} />
+          <MyTextInputNoButton
+            setTextValue={setJobType}
+            setOnUse={setJobOnUse}
+          />
         </div>
 
         {/* ===== CONVERSATION DISPLAY ===== */}
