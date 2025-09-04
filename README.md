@@ -33,7 +33,7 @@
     <img src="readme-images/logo.png" alt="Logo" width="100" height="100">
   </a>
 
-<h3 align="center">Mission 3 - AI Job Interview App</h3>
+<h3 align="center">Mission 3 - AI Job Interview App <br> PrepTalk</h3>
 
   <p align="center">
     An application that can be used by a staff member to practice job interviews for another role.
@@ -67,11 +67,8 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -96,30 +93,33 @@
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+Please ensure you have the following installed:
 
-- npm
+- **npm**
   ```sh
-  npm install npm@latest -g
+  npm install -g npm@latest
+  ```
+- **nodemon**
+  ```sh
+  npm install -g nodemon
   ```
 
 ### Installation
 
 1. Get a free API Key at [https://aistudio.google.com/app/u/1/apikey](https://aistudio.google.com/app/u/1/apikey)
 2. Clone the repo
-   ```sh
+   ```bash
    git clone https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3.git
    ```
 3. Install NPM packages
-   ```sh
+   ```bash
    npm install
    ```
-4. Enter your API in your `.env` file, see `.env.example`
+4. Enter your API key in your `.env` file, see `.env.example`
 
    ```env
    # Google Gen AI API Key
@@ -130,7 +130,7 @@ This is an example of how to list things you need to use the software and how to
    ```
 
 5. Change git remote url to avoid accidental pushes to base project
-   ```sh
+   ```bash
    git remote set-url origin tonkatommy/MRHQ-L5-Mission-3-Team-3
    git remote -v # confirm the changes
    ```
@@ -141,7 +141,11 @@ This is an example of how to list things you need to use the software and how to
 
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Simply enter the desired profession/job title in the input box and press **ENTER** to start the interview process.
+
+<div>
+  <img src="readme-images/screenshot-chatbot.png" alt="chatbot screenshot">
+</div>
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 

@@ -1,6 +1,7 @@
 // ===== IMPORTS =====
 // React hooks for state management and side effects
 import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../App.css";
 
 // Import custom components for the interview interface
@@ -20,7 +21,7 @@ function TextBot() {
   const [jobOnUse, setJobOnUse] = useState(false); // Trigger: when true, starts the interview
 
   // --- Conversation State ---
-  const [chatHistory, setChatHistory] = useState([]); // Array of all messages: ["User: Hello", "Model: Hi there!"]
+  const [chatHistory, setChatHistory] = useState([]); // Array of all messages: ["You: Hello", "PrepTalk: Hi there!"]
   const [originalPrompt, setOriginalPrompt] = useState(""); // Stores the initial interview setup prompt
 
   // --- UI State ---
@@ -60,7 +61,7 @@ function TextBot() {
     try {
       // Add placeholder and capture index
       setChatHistory((prev) => {
-        const newHistory = [...prev, "Model: "];
+        const newHistory = [...prev, "PrepTalk: "];
         messageIndex = newHistory.length - 1;
         console.log(
           `📝 Added placeholder at index ${messageIndex}, total messages: ${newHistory.length}`
@@ -137,7 +138,7 @@ function TextBot() {
                 setChatHistory((prev) => {
                   const newHistory = [...prev];
                   if (messageIndex >= 0) {
-                    newHistory[messageIndex] = `Model: Error: ${data.error}`;
+                    newHistory[messageIndex] = `PrepTalk: Error: ${data.error}`;
                   }
                   return newHistory;
                 });
@@ -159,7 +160,7 @@ function TextBot() {
                 setChatHistory((prev) => {
                   const newHistory = [...prev]; // Create a copy of the array
                   if (messageIndex >= 0 && messageIndex < newHistory.length) {
-                    newHistory[messageIndex] = `Model: ${accumulatedText}`;
+                    newHistory[messageIndex] = `PrepTalk: ${accumulatedText}`;
                     console.log(`🔄 Updated message at index ${messageIndex}`);
                   } else {
                     console.log(
@@ -184,7 +185,7 @@ function TextBot() {
                 setChatHistory((prev) => {
                   const newHistory = [...prev];
                   if (messageIndex >= 0 && messageIndex < newHistory.length) {
-                    newHistory[messageIndex] = `Model: ${accumulatedText}`;
+                    newHistory[messageIndex] = `PrepTalk: ${accumulatedText}`;
                   }
                   return newHistory;
                 });
@@ -206,7 +207,7 @@ function TextBot() {
       // Add an error message to the chat
       setChatHistory((prev) => [
         ...prev,
-        `Model: ❌ Error: ${networkError.message}`,
+        `PrepTalk: ❌ Error: ${networkError.message}`,
       ]);
     } finally {
       // ===== CLEANUP =====
@@ -247,7 +248,7 @@ function TextBot() {
 
     // Store the original prompt for context in follow-up messages
     // This helps the AI understand the interview context throughout the conversation
-    setOriginalPrompt("User: " + prompt);
+    setOriginalPrompt("You: " + prompt);
 
     console.log("📋 Interview prompt created and stored");
 
@@ -277,7 +278,7 @@ function TextBot() {
     // We add the user's message right away (before building the prompt)
     // This ensures the user sees their message appear immediately for better UX
     setChatHistory((prevChatHistory) => {
-      const updated = [...prevChatHistory, "User: " + textValue];
+      const updated = [...prevChatHistory, "You: " + textValue];
       console.log(`👤 Added user message, total messages: ${updated.length}`);
 
       // ===== BUILD CONTEXT FOR AI (with updated history) =====
@@ -315,7 +316,7 @@ Give your next reply as the interviewer. Remember to:
   return (
     <div className="app-shell">
       <div className="card">
-        <h1 className="title">🤖 AI Mock Interviewer</h1>
+        <h1 className="title">🤖 PrepTalk - Interview Bot</h1>
 
         {/* ===== JOB TITLE INPUT SECTION ===== */}
         <div className="field-row">
@@ -338,7 +339,7 @@ Give your next reply as the interviewer. Remember to:
           ChatLog component displays all messages in the conversation:
           - Shows both user messages and AI responses
           - Updates in real-time as AI response streams in
-          - Format: ["User: Hello", "Model: Hi there!", "User: Tell me about yourself", "Model: I am..."]
+          - Format: ["You: Hello", "PrepTalk: Hi there!", "You: Tell me about yourself", "PrepTalk: I am..."]
         */}
         <ChatLog chat={chatHistory} />
 
@@ -359,7 +360,7 @@ Give your next reply as the interviewer. Remember to:
         {/* Show visual feedback when AI is generating a response */}
         {isStreaming && (
           <div className="streaming-indicator">
-            <p>🤖 AI is thinking and responding...</p>
+            <p>🤖 PrepTalk is thinking and responding...</p>
           </div>
         )}
       </div>
