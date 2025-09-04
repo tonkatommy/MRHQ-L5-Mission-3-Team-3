@@ -30,13 +30,13 @@
 <br />
 <div align="center">
   <a href="https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3">
-    <img src="readme-images/logo.png" alt="Logo" width="80" height="80">
+    <img src="readme-images/logo.png" alt="Logo" width="100" height="100">
   </a>
 
 <h3 align="center">Mission 3 - AI Job Interview App</h3>
 
   <p align="center">
-    project_description
+    An application that can be used by a staff member to practice job interviews for another role.
     <br />
     <a href="https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3"><strong>Explore the docs »</strong></a>
     <br />
@@ -79,22 +79,16 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started. To avoid retyping too much info, do a search and replace with your text editor for the following: `tonkatommy`, `MRHQ-L5-Mission-3-Team-3`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `Mission 3 - AI Job Interview App`, `project_description`, `project_license`
+[![Product Name Screen Shot][product-screenshot]](https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 
-- [![Next][Next.js]][Next-url]
-- [![React][React.js]][React-url]
-- [![Vue][Vue.js]][Vue-url]
-- [![Angular][Angular.io]][Angular-url]
-- [![Svelte][Svelte.dev]][Svelte-url]
-- [![Laravel][Laravel.com]][Laravel-url]
-- [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-- [![JQuery][JQuery.com]][JQuery-url]
+- [![NodeJS](https://img.shields.io/badge/Node.js-6DA55F?logo=node.js&logoColor=white)](#)
+- [![Express.js](https://img.shields.io/badge/Express.js-%23404d59.svg?logo=express&logoColor=%2361DAFB)](#)
+- [![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)](#)
+- [![Google Gemini](https://img.shields.io/badge/Google%20Gemini-886FBF?logo=googlegemini&logoColor=fff)](#)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -116,7 +110,7 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Get a free API Key at [https://aistudio.google.com/app/u/1/apikey](https://aistudio.google.com/app/u/1/apikey)
 2. Clone the repo
    ```sh
    git clone https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3.git
@@ -125,10 +119,16 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
+4. Enter your API in your `.env` file, see `.env.example`
+
+   ```env
+   # Google Gen AI API Key
+   GEMINI_API_KEY='your_api_key_here'
+
+   # Server Port
+   PORT=3000
    ```
+
 5. Change git remote url to avoid accidental pushes to base project
    ```sh
    git remote set-url origin tonkatommy/MRHQ-L5-Mission-3-Team-3
@@ -144,19 +144,6 @@ This is an example of how to list things you need to use the software and how to
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
 _For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ROADMAP -->
-
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-  - [ ] Nested Feature
-
-See the [open issues](https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -183,31 +170,16 @@ Don't forget to give the project a star! Thanks again!
   <img src="https://contrib.rocks/image?repo=tonkatommy/MRHQ-L5-Mission-3-Team-3" alt="contrib.rocks image" />
 </a>
 
-<!-- LICENSE -->
-
-## License
-
-Distributed under the project_license. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- CONTACT -->
 
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Tommy Goodman - [@tonkatommy](https://github.com/tonkatommy/) - GitHub  
+Shane Chapman - [@shane-chapman-23](https://github.com/shane-chapman-23/) - GitHub  
+Thousif - [@thousifnm](https://github.com/thousifnm/) - GitHub  
+Peymon Armand - [@PeymonA](https://github.com/PeymonA/) - GitHub
 
 Project Link: [https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3](https://github.com/tonkatommy/MRHQ-L5-Mission-3-Team-3)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ACKNOWLEDGMENTS -->
-
-## Acknowledgments
-
-- []()
-- []()
-- []()
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
