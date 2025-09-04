@@ -1,7 +1,6 @@
 // ===== IMPORTS =====
 // React hooks for state management and side effects
 import { useEffect, useRef, useState } from "react";
-import { useEffect, useRef, useState } from "react";
 import "../App.css";
 
 // Import custom components for the interview interface
